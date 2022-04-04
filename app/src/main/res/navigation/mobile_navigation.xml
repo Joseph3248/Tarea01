@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_lugar_to_addLugarFragment"
             app:destination="@id/nav_addLugar" />
+        <action
+            android:id="@+id/action_nav_lugar_to_nav_updateLugar"
+            app:destination="@id/nav_updateLugar" />
     </fragment>
 
     <fragment
@@ -34,5 +37,17 @@
         <action
             android:id="@+id/action_addLugarFragment_to_nav_lugar"
             app:destination="@id/nav_lugar" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_updateLugar"
+        android:name="com.isc.tarea01.ui.lugar.UpdateLugarFragment"
+        android:label="@string/bt_update_lugar"
+        tools:layout="@layout/fragment_update_lugar" >
+        <action
+            android:id="@+id/action_nav_updateLugar_to_nav_lugar"
+            app:destination="@id/nav_lugar" />
+        <argument
+            android:name="lugar"
+            app:argType="com.isc.tarea01.model.Lugar" />
     </fragment>
 </navigation>

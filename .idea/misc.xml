@@ -9,8 +9,10 @@
         <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/layout/content_principal.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/layout/fragment_add_lugar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/layout/fragment_lugar.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/layout/lugar_fila.xml" value="0.264" />
+        <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/layout/fragment_update_lugar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/layout/lugar_fila.xml" value="0.4" />
         <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/menu/delete_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/edder/AndroidStudioProjects/Tarea01/app/src/main/res/menu/principal.xml" value="0.25416666666666665" />
       </map>
     </option>
