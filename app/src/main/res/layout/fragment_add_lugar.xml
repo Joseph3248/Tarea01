@@ -61,6 +61,73 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/bt_add_lugar" />
+
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="25sp"
+                android:padding="10sp"
+                android:stretchColumns="*">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_latitud1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        android:text="@string/tv_latitud_lb"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tv_longitud1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        android:text="@string/tv_longitud_lb"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tv_altura1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        android:text="@string/tv_altura_lb"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_latitud"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/tv_longitud"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/tv_altura"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        android:textSize="18sp" />
+                </TableRow>
+            </TableLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

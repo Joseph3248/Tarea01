@@ -1,6 +1,9 @@
 package com.isc.tarea01.ui.lugar
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -8,12 +11,15 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.location.GeofencingRequest
 import com.isc.tarea01.R
 import com.isc.tarea01.databinding.FragmentAddLugarBinding
 import com.isc.tarea01.databinding.FragmentLugarBinding
 import com.isc.tarea01.databinding.FragmentUpdateLugarBinding
 import com.isc.tarea01.model.Lugar
 import com.isc.tarea01.viewmodel.LugarViewModel
+import kotlinx.coroutines.handleCoroutineException
+import android.Manifest
 
 class UpdateLugarFragment : Fragment() {
 
@@ -41,14 +47,127 @@ class UpdateLugarFragment : Fragment() {
         binding.etCorreo.setText(args.lugar.correo)
         binding.etTelefono.setText(args.lugar.telefono)
         binding.etWeb.setText(args.lugar.web)
+        binding.tvLatitud.text = args.lugar.latitud.toString()
+        binding.tvLongitud.text = args.lugar.longitud.toString()
+        binding.tvAltura.text = args.lugar.altura.toString()
 
-        binding.btUpdateLugar.setOnClickListener {
-            actualizarLugar()
-        }
+
+        binding.btUpdateLugar.setOnClickListener { actualizarLugar() }
+        binding.btEmail.setOnClickListener { enviarCorreo() }
+        binding.btPhone.setOnClickListener { hacerLlamda() }
+        binding.btWhatsapp.setOnClickListener { enviarWhatsapp() }
+        binding.btWeb.setOnClickListener { verWeb() }
+        binding.btLocation.setOnClickListener { verMapa() }
 
         setHasOptionsMenu(true) //Este fragmento debe tener un menu adicional
 
         return binding.root
+    }
+
+    private fun verMapa() {
+        val latitud = binding.tvLatitud.text.toString().toDouble()//extrae info de la web
+        val longitud = binding.tvLongitud.text.toString().toDouble()
+        if (latitud.isFinite() && longitud.isFinite()) {//verifican recursos
+
+            val location = Uri.parse("geo:$latitud,$longitud?z=18")
+
+            val intent = Intent(Intent.ACTION_VIEW, location)//Se ve el mapa desde la app
+
+            startActivity(intent)//Se abre el visor de mapas y se ve el lugar
+
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.msg_datos), Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    private fun verWeb() {
+        val sitio = binding.etWeb.text.toString()//extrae info de la web
+        if (sitio.isNotEmpty()) {//verifica que existan datos
+
+            val web = Uri.parse("http://$sitio")
+
+            val intent = Intent(Intent.ACTION_VIEW, web)//Se llama algo desde el app
+
+            startActivity(intent)
+
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.msg_datos), Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    private fun enviarWhatsapp() {
+        val telefono = binding.etTelefono.text.toString()//extrae info telefono
+        if (telefono.isNotEmpty()) {//verifica que existan datos
+
+            val intent = Intent(Intent.ACTION_VIEW)//Se llama algo desde el app
+            val uri = "whatsapp://send?phone=506$telefono&text=" +
+                    getString(R.string.msg_saludos)
+
+            intent.setPackage("com.whatsapp")//Se establece el app a utilizar
+            intent.data = Uri.parse(uri)
+            startActivity(intent)
+
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.msg_datos), Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    private fun hacerLlamda() {
+
+        val telefono = binding.etTelefono.text.toString()//extrae info telefono
+        if (telefono.isNotEmpty()) {//verifica que existan datos
+
+            val intent = Intent(Intent.ACTION_CALL)//Se llama algo desde el app
+
+            intent.data = Uri.parse("tel:$telefono")//indica que va a realizar una llamada
+
+//se valida si hay permisos para realizar la llamada
+            if (requireActivity().checkSelfPermission(Manifest.permission.CALL_PHONE) !=
+                PackageManager.PERMISSION_GRANTED
+            ) {            //si no tenemos permisos,se solicitan al usuario
+                requireActivity().requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), 105)
+            } else {
+                requireActivity().startActivity(intent)
+            }
+
+
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.msg_datos), Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    private fun enviarCorreo() {
+        val correo = binding.etCorreo.text.toString()//extrae info correo
+        if (correo.isNotEmpty()) {//verifica que existan datos
+
+            val intent = Intent(Intent.ACTION_SEND)//Se envia algo desde el app
+            intent.type = "message/rfc822" //indica que va a enviar un correo electronico
+
+            //se define el destinatario
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(correo))
+
+            //se define el asunto
+            intent.putExtra(
+                Intent.EXTRA_SUBJECT,
+                getString(R.string.msg_saludos) + "" + binding.etNombre.text
+            )
+
+            //se define le cuerpo del correo
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.msg_correo))
+
+            //se solicita el recurso del correo para que ese envie este
+            startActivity(intent)
+
+
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.msg_datos), Toast.LENGTH_LONG)
+                .show()
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -58,7 +177,7 @@ class UpdateLugarFragment : Fragment() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId==R.id.delete_menu){
+        if (item.itemId == R.id.delete_menu) {
             deleteLugar()
         }
 
