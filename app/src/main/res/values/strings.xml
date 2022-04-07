@@ -41,10 +41,25 @@
     <string name="msg_saludos">Saludos amigos</string>
     <string name="msg_mensaje_correo">Le escribo este correo para</string>
     <string name="msg_datos">Faltan datos</string>
-    <string name="error">Error</string>
+    <string name="error">0.0</string>
     <string name="menu_delete">Eliminar Lugar</string>
     <string name="msg_seguroBorrar">Esta seguro de eliminar</string>
     <string name="no">No</string>
     <string name="si">Si</string>
+
+    <string name="msg_imagen">Imagen del lugar</string>
+    <string name="msg_graba_pausa">Graba o pausa grabaciÃ³n</string>
+    <string name="msg_escucha_audio">Escucha nota de audio</string>
+    <string name="msg_delete_nota">Borra nota de audio</string>
+    <string name="msg_rec_stop_nota">Graba o detiene nota de audio</string>
+    <string name="msg_take_photo">Toma foto</string>
+    <string name="msg_rotate_l">Rota izquierda</string>
+    <string name="msg_rotale_r">Rota a la derecha</string>
+    <string name="msg_graba_audio">Grabando nota de audio</string>
+    <string name="msg_detener_audio">Nota de audio detenida</string>
+    <string name="msg_subiendo_audio">Subiendo Nota Audio</string>
+    <string name="msg_subiendo_imagen">Subiendo imagen</string>
+    <string name="todo">para que no de error</string>
+
 
 </resources>

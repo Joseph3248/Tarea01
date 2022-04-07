@@ -20,6 +20,9 @@ import com.isc.tarea01.model.Lugar
 import com.isc.tarea01.viewmodel.LugarViewModel
 import kotlinx.coroutines.handleCoroutineException
 import android.Manifest
+import android.media.MediaPlayer
+import android.system.Os
+import com.bumptech.glide.Glide
 
 class UpdateLugarFragment : Fragment() {
 
@@ -31,6 +34,8 @@ class UpdateLugarFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args by navArgs<UpdateLugarFragmentArgs>()
+
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +63,29 @@ class UpdateLugarFragment : Fragment() {
         binding.btWhatsapp.setOnClickListener { enviarWhatsapp() }
         binding.btWeb.setOnClickListener { verWeb() }
         binding.btLocation.setOnClickListener { verMapa() }
+
+        if (args.lugar.rutaAudio?.isNotEmpty()== true ){
+            mediaPlayer = MediaPlayer()
+            mediaPlayer.setDataSource(args.lugar.rutaAudio)
+            mediaPlayer.prepare()
+            binding.btPlay.isEnabled=true
+            binding.btPlay.setOnClickListener { mediaPlayer.start() }
+
+
+        }else{
+            binding.btPlay.isEnabled=false
+        }
+binding.btPlay.setOnClickListener { mediaPlayer.start() }
+
+
+        if (args.lugar.rutaImagen?.isNotEmpty()== true ){
+Glide.with(requireContext())
+    .load(args.lugar.rutaImagen)
+    .fitCenter()
+    .into(binding.imagen)
+
+        }
+
 
         setHasOptionsMenu(true) //Este fragmento debe tener un menu adicional
 
@@ -191,7 +219,7 @@ class UpdateLugarFragment : Fragment() {
             val telefono = binding.etTelefono.text.toString()
             val web = binding.etWeb.text.toString()
             val lugar = Lugar(args.lugar.id, nombre, correo, telefono, web, args.lugar.latitud, args.lugar.longitud, args.lugar.altura ,
-                   "", "")
+                   args.lugar.rutaAudio, args.lugar.rutaImagen)
             lugarViewModel.updateLugar(lugar)
             Toast.makeText(
                 requireContext(),
